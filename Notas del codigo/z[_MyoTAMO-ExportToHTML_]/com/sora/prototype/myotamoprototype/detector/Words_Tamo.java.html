@@ -1,0 +1,155 @@
+<html>
+<head>
+<title>Words_Tamo.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(0,0,128); font-weight: bold; }
+.s1 { }
+.s2 { color: rgb(128,128,128); font-style: italic; }
+.s3 { color: rgb(0,128,0); font-weight: bold; }
+.s4 { color: rgb(128,128,128); font-weight: bold; font-style: italic; }
+.s5 { color: rgb(0,0,255); }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+Words_Tamo.java</FONT>
+</center></TD></TR></TABLE>
+<pre>
+
+<a name="l1"><span class="ln">1    </span></a><span class="s0">package </span><span class="s1">com.sora.prototype.myotamoprototype.detector; 
+<a name="l2"><span class="ln">2    </span></a> 
+<a name="l3"><span class="ln">3    </span></a></span><span class="s2">// Librerias</span><span class="s1"> 
+<a name="l4"><span class="ln">4    </span></a></span><span class="s0">import </span><span class="s1">android.util.Log; 
+<a name="l5"><span class="ln">5    </span></a></span><span class="s0">import </span><span class="s1">java.util.ArrayList; 
+<a name="l6"><span class="ln">6    </span></a></span><span class="s0">import </span><span class="s1">java.util.regex.Matcher; 
+<a name="l7"><span class="ln">7    </span></a></span><span class="s0">import </span><span class="s1">java.util.regex.Pattern; 
+<a name="l8"><span class="ln">8    </span></a> 
+<a name="l9"><span class="ln">9    </span></a></span><span class="s2">/** 
+<a name="l10"><span class="ln">10   </span></a> * Diccionario de palabras para la prediccion de texto 
+<a name="l11"><span class="ln">11   </span></a> */</span><span class="s1"> 
+<a name="l12"><span class="ln">12   </span></a></span><span class="s0">public class </span><span class="s1">Words_Tamo{ 
+<a name="l13"><span class="ln">13   </span></a>    </span><span class="s2">// Variables para Datos del Gesto/Señal (Palabras para el Diccionario y la Prediccion de texto)</span><span class="s1"> 
+<a name="l14"><span class="ln">14   </span></a>    </span><span class="s0">private </span><span class="s1">ArrayList&lt;String&gt;[] arrayOfWords = </span><span class="s0">new </span><span class="s1">ArrayList[] { 
+<a name="l15"><span class="ln">15   </span></a>            </span><span class="s0">new </span><span class="s1">ArrayList&lt;String&gt;(), </span><span class="s2">// A // 01</span><span class="s1"> 
+<a name="l16"><span class="ln">16   </span></a>            </span><span class="s0">new </span><span class="s1">ArrayList&lt;String&gt;(), </span><span class="s2">// B // 02</span><span class="s1"> 
+<a name="l17"><span class="ln">17   </span></a>            </span><span class="s0">new </span><span class="s1">ArrayList&lt;String&gt;(), </span><span class="s2">// C // 03</span><span class="s1"> 
+<a name="l18"><span class="ln">18   </span></a>            </span><span class="s0">new </span><span class="s1">ArrayList&lt;String&gt;(), </span><span class="s2">// D // 04</span><span class="s1"> 
+<a name="l19"><span class="ln">19   </span></a>            </span><span class="s0">new </span><span class="s1">ArrayList&lt;String&gt;(), </span><span class="s2">// E // 05</span><span class="s1"> 
+<a name="l20"><span class="ln">20   </span></a>            </span><span class="s0">new </span><span class="s1">ArrayList&lt;String&gt;(), </span><span class="s2">// G // 06</span><span class="s1"> 
+<a name="l21"><span class="ln">21   </span></a>            </span><span class="s0">new </span><span class="s1">ArrayList&lt;String&gt;(), </span><span class="s2">// H // 07</span><span class="s1"> 
+<a name="l22"><span class="ln">22   </span></a>            </span><span class="s0">new </span><span class="s1">ArrayList&lt;String&gt;(), </span><span class="s2">// I // 08</span><span class="s1"> 
+<a name="l23"><span class="ln">23   </span></a>            </span><span class="s0">new </span><span class="s1">ArrayList&lt;String&gt;(), </span><span class="s2">// L // 09</span><span class="s1"> 
+<a name="l24"><span class="ln">24   </span></a>            </span><span class="s0">new </span><span class="s1">ArrayList&lt;String&gt;(), </span><span class="s2">// M // 10</span><span class="s1"> 
+<a name="l25"><span class="ln">25   </span></a>            </span><span class="s0">new </span><span class="s1">ArrayList&lt;String&gt;(), </span><span class="s2">// N // 11</span><span class="s1"> 
+<a name="l26"><span class="ln">26   </span></a>            </span><span class="s0">new </span><span class="s1">ArrayList&lt;String&gt;(), </span><span class="s2">// O // 12</span><span class="s1"> 
+<a name="l27"><span class="ln">27   </span></a>            </span><span class="s0">new </span><span class="s1">ArrayList&lt;String&gt;(), </span><span class="s2">// P // 13</span><span class="s1"> 
+<a name="l28"><span class="ln">28   </span></a>            </span><span class="s0">new </span><span class="s1">ArrayList&lt;String&gt;(), </span><span class="s2">// R // 14</span><span class="s1"> 
+<a name="l29"><span class="ln">29   </span></a>            </span><span class="s0">new </span><span class="s1">ArrayList&lt;String&gt;(), </span><span class="s2">// S // 15</span><span class="s1"> 
+<a name="l30"><span class="ln">30   </span></a>            </span><span class="s0">new </span><span class="s1">ArrayList&lt;String&gt;(), </span><span class="s2">// T // 16</span><span class="s1"> 
+<a name="l31"><span class="ln">31   </span></a>            </span><span class="s0">new </span><span class="s1">ArrayList&lt;String&gt;()  </span><span class="s2">// U // 17</span><span class="s1"> 
+<a name="l32"><span class="ln">32   </span></a>    }; 
+<a name="l33"><span class="ln">33   </span></a>    </span><span class="s2">// TAG para la Visualizacion de MSJ en Consola</span><span class="s1"> 
+<a name="l34"><span class="ln">34   </span></a>    </span><span class="s0">public final static </span><span class="s1">String TAG = </span><span class="s3">&quot;MyoTAMO-Words&quot;</span><span class="s1">; 
+<a name="l35"><span class="ln">35   </span></a>    </span><span class="s2">// ----------- ---------------------------------------------------------------------------------</span><span class="s1"> 
+<a name="l36"><span class="ln">36   </span></a>    </span><span class="s2">// Constructor ---------------------------------------------------------------------------------</span><span class="s1"> 
+<a name="l37"><span class="ln">37   </span></a>    </span><span class="s2">/** 
+<a name="l38"><span class="ln">38   </span></a>     * Constructor vacio del diccionario 
+<a name="l39"><span class="ln">39   </span></a>     */</span><span class="s1"> 
+<a name="l40"><span class="ln">40   </span></a>    </span><span class="s0">public </span><span class="s1">Words_Tamo(){ 
+<a name="l41"><span class="ln">41   </span></a>    } 
+<a name="l42"><span class="ln">42   </span></a>    </span><span class="s2">// ---------------------------------------------- ----------------------------------------------</span><span class="s1"> 
+<a name="l43"><span class="ln">43   </span></a>    </span><span class="s2">// Agregar una nueva palabra -------------------- ----------------------------------------------</span><span class="s1"> 
+<a name="l44"><span class="ln">44   </span></a>    </span><span class="s2">/** 
+<a name="l45"><span class="ln">45   </span></a>     * Agrega una nueva palabra a un diccionaro de palabra en base a su primer letra 
+<a name="l46"><span class="ln">46   </span></a>     * </span><span class="s4">@param </span><span class="s2">word Palabra 
+<a name="l47"><span class="ln">47   </span></a>     * </span><span class="s4">@param </span><span class="s2">position Posicion donde sera agregada la palabra 
+<a name="l48"><span class="ln">48   </span></a>     */</span><span class="s1"> 
+<a name="l49"><span class="ln">49   </span></a>    </span><span class="s0">public void </span><span class="s1">setNewWord_In(String word, </span><span class="s0">int </span><span class="s1">position){ 
+<a name="l50"><span class="ln">50   </span></a>        </span><span class="s0">if</span><span class="s1">(!arrayOfWords[position].contains(word)){ 
+<a name="l51"><span class="ln">51   </span></a>            arrayOfWords[position].add(word); 
+<a name="l52"><span class="ln">52   </span></a>        } 
+<a name="l53"><span class="ln">53   </span></a>    } 
+<a name="l54"><span class="ln">54   </span></a>    </span><span class="s2">// -------------------------------------------- ------------------------------------------------</span><span class="s1"> 
+<a name="l55"><span class="ln">55   </span></a>    </span><span class="s2">// Componer la frase con las palabras conocidas ------------------------------------------------</span><span class="s1"> 
+<a name="l56"><span class="ln">56   </span></a>    </span><span class="s2">/** 
+<a name="l57"><span class="ln">57   </span></a>     * Este metodo analisa la cadena de caracteres, buscando la ultima palabra la cual analizara para intentar predecir completamente en base con un diccionario de palabras 
+<a name="l58"><span class="ln">58   </span></a>     * </span><span class="s4">@param </span><span class="s2">message Mensaje o Palabra que sera analizada 
+<a name="l59"><span class="ln">59   </span></a>     * </span><span class="s4">@return </span><span class="s2">Mensaje con la ultima palabra compuesta (es decir su prediccion) 
+<a name="l60"><span class="ln">60   </span></a>     */</span><span class="s1"> 
+<a name="l61"><span class="ln">61   </span></a>    </span><span class="s0">public </span><span class="s1">String fixedUltimateWord(String message){ 
+<a name="l62"><span class="ln">62   </span></a>        String returnPhrase = </span><span class="s3">&quot;&quot;</span><span class="s1">; </span><span class="s2">// Resultado o frase</span><span class="s1"> 
+<a name="l63"><span class="ln">63   </span></a>        </span><span class="s0">if</span><span class="s1">(message != </span><span class="s0">null </span><span class="s1">&amp;&amp; message != </span><span class="s3">&quot;&quot;</span><span class="s1">){ </span><span class="s2">// Comprobar el tipo de mensaje de entrada</span><span class="s1"> 
+<a name="l64"><span class="ln">64   </span></a>            </span><span class="s2">// Si solo se tiene 1 palabra, devolver el tratamiento de esta</span><span class="s1"> 
+<a name="l65"><span class="ln">65   </span></a>            </span><span class="s0">if</span><span class="s1">( message.split(</span><span class="s3">&quot; &quot;</span><span class="s1">).length &lt; </span><span class="s5">1 </span><span class="s1">){ 
+<a name="l66"><span class="ln">66   </span></a>                returnPhrase = fixedWord(message); 
+<a name="l67"><span class="ln">67   </span></a>            }</span><span class="s0">else</span><span class="s1">{ </span><span class="s2">// Si se tiene mas de 1 palabra, devolver el tratamiento de la ultima palabra</span><span class="s1"> 
+<a name="l68"><span class="ln">68   </span></a>                String[] wordsInMessage = message.split(</span><span class="s3">&quot; &quot;</span><span class="s1">); </span><span class="s2">// Separar el texto por espacios</span><span class="s1"> 
+<a name="l69"><span class="ln">69   </span></a>                </span><span class="s2">// Respaldar todas las palabras excepto la ultima</span><span class="s1"> 
+<a name="l70"><span class="ln">70   </span></a>                </span><span class="s0">for</span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s5">0</span><span class="s1">; i &lt; wordsInMessage.length -</span><span class="s5">1</span><span class="s1">; i++){ 
+<a name="l71"><span class="ln">71   </span></a>                    returnPhrase += wordsInMessage[i] + </span><span class="s3">&quot; &quot;</span><span class="s1">; 
+<a name="l72"><span class="ln">72   </span></a>                } 
+<a name="l73"><span class="ln">73   </span></a>                </span><span class="s2">// Concatenar al resultado el tratamiento de la ultima palabra</span><span class="s1"> 
+<a name="l74"><span class="ln">74   </span></a>                returnPhrase += fixedWord(wordsInMessage[wordsInMessage.length - </span><span class="s5">1</span><span class="s1">]); 
+<a name="l75"><span class="ln">75   </span></a>            } 
+<a name="l76"><span class="ln">76   </span></a>        }</span><span class="s0">else</span><span class="s1">{ 
+<a name="l77"><span class="ln">77   </span></a>            returnPhrase = message; </span><span class="s2">// Devolver el mismo mensaje de entrada</span><span class="s1"> 
+<a name="l78"><span class="ln">78   </span></a>        } 
+<a name="l79"><span class="ln">79   </span></a>        </span><span class="s0">return </span><span class="s1">returnPhrase; 
+<a name="l80"><span class="ln">80   </span></a>    } 
+<a name="l81"><span class="ln">81   </span></a>    </span><span class="s2">// Tratar una plabra en particular</span><span class="s1"> 
+<a name="l82"><span class="ln">82   </span></a>    </span><span class="s2">/** 
+<a name="l83"><span class="ln">83   </span></a>     * Analisa una palabra en particular para intentar completarla con base al diccionario de palabras 
+<a name="l84"><span class="ln">84   </span></a>     * </span><span class="s4">@param </span><span class="s2">wordString Palabra de entrada que sera analisada (esta secuencia de caracteres podria no ser alguna palabra en especifico) 
+<a name="l85"><span class="ln">85   </span></a>     * </span><span class="s4">@return </span><span class="s2">La palabra de entrada completada en base al analisis con el diccionario de palabras 
+<a name="l86"><span class="ln">86   </span></a>     */</span><span class="s1"> 
+<a name="l87"><span class="ln">87   </span></a>    </span><span class="s0">private int </span><span class="s1">minMatch = </span><span class="s5">2</span><span class="s1">;              </span><span class="s2">// Minimo numero de caracteres para considerar al texto como palabra</span><span class="s1"> 
+<a name="l88"><span class="ln">88   </span></a>    </span><span class="s0">private int </span><span class="s1">minMatchSize = minMatch*</span><span class="s5">2</span><span class="s1">; </span><span class="s2">// Minimo numero de caracteres para comenzar a tratar una palabra</span><span class="s1"> 
+<a name="l89"><span class="ln">89   </span></a>    </span><span class="s0">public </span><span class="s1">String fixedWord(String wordString){ 
+<a name="l90"><span class="ln">90   </span></a>        String newWord = wordString;                     </span><span class="s2">// Resultado del tratamiento de la palabra, por defecto el mismo texto de entrada</span><span class="s1"> 
+<a name="l91"><span class="ln">91   </span></a>        </span><span class="s0">if</span><span class="s1">(wordString.toCharArray().length &gt;= minMatch){ </span><span class="s2">// Verificar si se puede conciderar palabra</span><span class="s1"> 
+<a name="l92"><span class="ln">92   </span></a>            </span><span class="s0">boolean </span><span class="s1">breakFixed = </span><span class="s0">false</span><span class="s1">; </span><span class="s2">// Variable de control para romper comparacion con el diccionario en caso de encontrar coincidencia</span><span class="s1"> 
+<a name="l93"><span class="ln">93   </span></a>            </span><span class="s0">for</span><span class="s1">(ArrayList&lt;String&gt; arrayWords :arrayOfWords){ </span><span class="s2">// Recorrer los conjunto de palabras del diccionario</span><span class="s1"> 
+<a name="l94"><span class="ln">94   </span></a>                </span><span class="s2">// Comparar cada palabra del diccionario con la palabra de entrada</span><span class="s1"> 
+<a name="l95"><span class="ln">95   </span></a>                </span><span class="s0">for</span><span class="s1">(String wordOfBD: arrayWords){ </span><span class="s2">// Recorrer cada palabra de un conjunto de palabras del diccionario</span><span class="s1"> 
+<a name="l96"><span class="ln">96   </span></a>                    Log.d(TAG, </span><span class="s3">&quot;__________________.&quot;</span><span class="s1">+wordOfBD+</span><span class="s3">&quot;.vs.&quot;</span><span class="s1">+wordString+</span><span class="s3">&quot;.__________________&quot;</span><span class="s1">); 
+<a name="l97"><span class="ln">97   </span></a>                    String myMiniumWord = </span><span class="s3">&quot;&quot;</span><span class="s1">; 
+<a name="l98"><span class="ln">98   </span></a>                    </span><span class="s2">// Limpiar la Palabra del diccionario de impuresas como espacios</span><span class="s1"> 
+<a name="l99"><span class="ln">99   </span></a>                    </span><span class="s0">if</span><span class="s1">(wordOfBD.toCharArray().length &gt;= minMatchSize){ 
+<a name="l100"><span class="ln">100  </span></a>                        myMiniumWord = wordOfBD.substring(</span><span class="s5">0</span><span class="s1">, minMatchSize); 
+<a name="l101"><span class="ln">101  </span></a>                    }</span><span class="s0">else</span><span class="s1">{ 
+<a name="l102"><span class="ln">102  </span></a>                        myMiniumWord = wordOfBD; 
+<a name="l103"><span class="ln">103  </span></a>                    } 
+<a name="l104"><span class="ln">104  </span></a>                    </span><span class="s2">// Si la palabra del diccionario es diferente de nulo y cadena vacia</span><span class="s1"> 
+<a name="l105"><span class="ln">105  </span></a>                    </span><span class="s0">if</span><span class="s1">(myMiniumWord != </span><span class="s0">null </span><span class="s1">&amp;&amp; myMiniumWord != </span><span class="s3">&quot;&quot;</span><span class="s1">){ 
+<a name="l106"><span class="ln">106  </span></a>                        </span><span class="s2">// Se obtiene un patron de caracteres de las palabras del diccionario (Con base en consonantes)</span><span class="s1"> 
+<a name="l107"><span class="ln">107  </span></a>                        String patronConsonante = myMiniumWord.replaceAll(</span><span class="s3">&quot;(?![aeiouAEIOU])[a-zA-Z]&quot;</span><span class="s1">,</span><span class="s3">&quot;[bcdefghijklmnopqrstuvwxyzBCDEFGHIJKLMNOPQRSTUVWXYZ]+&quot;</span><span class="s1">); 
+<a name="l108"><span class="ln">108  </span></a>                        </span><span class="s2">// Se obtiene un patron de caracteres de las palabras del diccionario (Con base en vocales)</span><span class="s1"> 
+<a name="l109"><span class="ln">109  </span></a>                        String patronVocal = myMiniumWord.replaceAll(</span><span class="s3">&quot;(?![bcdefghijklmnopqrstuvwxyzBCDEFGHIJKLMNOPQRSTUVWXYZ])[a-zA-Z]&quot;</span><span class="s1">, </span><span class="s3">&quot;[aeiouAEIOU]+&quot;</span><span class="s1">); 
+<a name="l110"><span class="ln">110  </span></a>                        Log.d(TAG, </span><span class="s3">&quot;Patron.Constante:_&quot;</span><span class="s1">+patronConsonante+</span><span class="s3">&quot;______&quot;</span><span class="s1">); 
+<a name="l111"><span class="ln">111  </span></a>                        Log.d(TAG, </span><span class="s3">&quot;Patron.Vocal:_____&quot;</span><span class="s1">+patronVocal+</span><span class="s3">&quot;______&quot;</span><span class="s1">); 
+<a name="l112"><span class="ln">112  </span></a>                        Matcher matCon = Pattern.compile(patronConsonante).matcher(wordString); </span><span class="s2">// Comparar la palabra entrante contra el patron de la palabra del diccionario (con base en consonantes)</span><span class="s1"> 
+<a name="l113"><span class="ln">113  </span></a>                        Matcher matVoc = Pattern.compile(patronVocal).matcher(wordString);      </span><span class="s2">// Comparar la palabra entrante contra el patron de la palabra del diccionario (con base en vocales)</span><span class="s1"> 
+<a name="l114"><span class="ln">114  </span></a>                        </span><span class="s2">// Si algun patron coincide entonces se toma a la palabra del diccionario, como la palabra que se esta escribiendo</span><span class="s1"> 
+<a name="l115"><span class="ln">115  </span></a>                        </span><span class="s0">if </span><span class="s1">(matCon.matches() || matVoc.matches()) { 
+<a name="l116"><span class="ln">116  </span></a>                            newWord = wordOfBD + </span><span class="s3">&quot; &quot;</span><span class="s1">; </span><span class="s2">// Establecer la nueva palabra</span><span class="s1"> 
+<a name="l117"><span class="ln">117  </span></a>                            breakFixed = </span><span class="s0">true</span><span class="s1">;        </span><span class="s2">// Indicar la salida del ciclo tras predecir la palabra</span><span class="s1"> 
+<a name="l118"><span class="ln">118  </span></a>                            </span><span class="s0">break</span><span class="s1">; 
+<a name="l119"><span class="ln">119  </span></a>                        } 
+<a name="l120"><span class="ln">120  </span></a>                    } 
+<a name="l121"><span class="ln">121  </span></a>                } 
+<a name="l122"><span class="ln">122  </span></a>                </span><span class="s0">if</span><span class="s1">(breakFixed){ 
+<a name="l123"><span class="ln">123  </span></a>                    </span><span class="s0">break</span><span class="s1">; 
+<a name="l124"><span class="ln">124  </span></a>                } 
+<a name="l125"><span class="ln">125  </span></a>            } 
+<a name="l126"><span class="ln">126  </span></a>        } 
+<a name="l127"><span class="ln">127  </span></a>        </span><span class="s0">return </span><span class="s1">newWord; 
+<a name="l128"><span class="ln">128  </span></a>    } 
+<a name="l129"><span class="ln">129  </span></a>    </span><span class="s2">// ---------------------------------------------- ----------------------------------------------</span><span class="s1"> 
+<a name="l130"><span class="ln">130  </span></a>    </span><span class="s2">// ---------------------------------------------- ----------------------------------------------</span><span class="s1"> 
+<a name="l131"><span class="ln">131  </span></a>}</span></pre>
+</body>
+</html>

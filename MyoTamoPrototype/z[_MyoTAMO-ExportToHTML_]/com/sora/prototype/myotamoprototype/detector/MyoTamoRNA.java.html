@@ -1,0 +1,151 @@
+<html>
+<head>
+<title>MyoTamoRNA.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(0,0,128); font-weight: bold; }
+.s1 { }
+.s2 { color: rgb(128,128,128); font-style: italic; }
+.s3 { color: rgb(0,128,0); font-weight: bold; }
+.s4 { color: rgb(128,128,128); font-weight: bold; font-style: italic; }
+.s5 { color: rgb(0,0,255); }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+MyoTamoRNA.java</FONT>
+</center></TD></TR></TABLE>
+<pre>
+
+<a name="l1"><span class="ln">1    </span></a><span class="s0">package </span><span class="s1">com.sora.prototype.myotamoprototype.detector; 
+<a name="l2"><span class="ln">2    </span></a> 
+<a name="l3"><span class="ln">3    </span></a></span><span class="s2">// Libreria</span><span class="s1"> 
+<a name="l4"><span class="ln">4    </span></a></span><span class="s0">import </span><span class="s1">android.util.Log; 
+<a name="l5"><span class="ln">5    </span></a></span><span class="s0">import </span><span class="s1">java.util.ArrayList; 
+<a name="l6"><span class="ln">6    </span></a> 
+<a name="l7"><span class="ln">7    </span></a></span><span class="s2">/** 
+<a name="l8"><span class="ln">8    </span></a> * Implementacion del comportamiento de una RNA sin retroalimentacion 
+<a name="l9"><span class="ln">9    </span></a> */</span><span class="s1"> 
+<a name="l10"><span class="ln">10   </span></a></span><span class="s0">public class </span><span class="s1">MyoTamoRNA { 
+<a name="l11"><span class="ln">11   </span></a>    </span><span class="s2">// Variable de Pesos para esta RNA</span><span class="s1"> 
+<a name="l12"><span class="ln">12   </span></a>    </span><span class="s0">private </span><span class="s1">ArrayList&lt;Double[][]&gt; weightsRNA = </span><span class="s0">new </span><span class="s1">ArrayList&lt;Double[][]&gt;(); 
+<a name="l13"><span class="ln">13   </span></a>    </span><span class="s2">// Variable de Bias para esta RNA</span><span class="s1"> 
+<a name="l14"><span class="ln">14   </span></a>    </span><span class="s0">private </span><span class="s1">ArrayList&lt;Double[]&gt; biasRNA = </span><span class="s0">new </span><span class="s1">ArrayList&lt;Double[]&gt;();; 
+<a name="l15"><span class="ln">15   </span></a>    </span><span class="s2">// Variable de Funciones para esta RNA</span><span class="s1"> 
+<a name="l16"><span class="ln">16   </span></a>    </span><span class="s0">private </span><span class="s1">String[] nameFuctionsForLayer = {</span><span class="s3">&quot;&quot;</span><span class="s1">}; 
+<a name="l17"><span class="ln">17   </span></a>    </span><span class="s2">// Variable de status (Estado) de esta RNA</span><span class="s1"> 
+<a name="l18"><span class="ln">18   </span></a>    </span><span class="s0">private boolean </span><span class="s1">statusRNA = </span><span class="s0">false</span><span class="s1">; 
+<a name="l19"><span class="ln">19   </span></a>    </span><span class="s2">// TAG para la Visualizacion de MSJ en Consola</span><span class="s1"> 
+<a name="l20"><span class="ln">20   </span></a>    </span><span class="s0">private static final </span><span class="s1">String TAG = </span><span class="s3">&quot;MyoTAMO-RNA&quot;</span><span class="s1">; 
+<a name="l21"><span class="ln">21   </span></a>    </span><span class="s2">// ---------------------------------------------- ----------------------------------------------</span><span class="s1"> 
+<a name="l22"><span class="ln">22   </span></a>    </span><span class="s2">// Contruccion  --------------------------------------------------------------------------------</span><span class="s1"> 
+<a name="l23"><span class="ln">23   </span></a>    </span><span class="s2">/** 
+<a name="l24"><span class="ln">24   </span></a>     * Constructor de la implementacion de la RNA 
+<a name="l25"><span class="ln">25   </span></a>     */</span><span class="s1"> 
+<a name="l26"><span class="ln">26   </span></a>    </span><span class="s0">public </span><span class="s1">MyoTamoRNA(ArrayList&lt;Double[][]&gt; weights, ArrayList&lt;Double[]&gt; bias, String[] nomFuctionsForLayer){ 
+<a name="l27"><span class="ln">27   </span></a>        weightsRNA = weights; </span><span class="s2">// Establecer los Pesos</span><span class="s1"> 
+<a name="l28"><span class="ln">28   </span></a>        biasRNA = bias;       </span><span class="s2">// Establecer las Bias</span><span class="s1"> 
+<a name="l29"><span class="ln">29   </span></a>        nameFuctionsForLayer = nomFuctionsForLayer; </span><span class="s2">// Establecer las funciones por capa</span><span class="s1"> 
+<a name="l30"><span class="ln">30   </span></a>        </span><span class="s0">if</span><span class="s1">((weightsRNA.size() == nameFuctionsForLayer.length) &amp;&amp; (weightsRNA.size() == biasRNA.size())){ 
+<a name="l31"><span class="ln">31   </span></a>            statusRNA = </span><span class="s0">true</span><span class="s1">; </span><span class="s2">// Correcta contruccion de la RNA</span><span class="s1"> 
+<a name="l32"><span class="ln">32   </span></a>        } 
+<a name="l33"><span class="ln">33   </span></a>    } 
+<a name="l34"><span class="ln">34   </span></a>    </span><span class="s2">/** 
+<a name="l35"><span class="ln">35   </span></a>     * Constructor vacio de la implemementacion de la RNA 
+<a name="l36"><span class="ln">36   </span></a>     */</span><span class="s1"> 
+<a name="l37"><span class="ln">37   </span></a>    </span><span class="s0">public </span><span class="s1">MyoTamoRNA(){ } </span><span class="s2">// Incorrecta contruccion de la RNA</span><span class="s1"> 
+<a name="l38"><span class="ln">38   </span></a>    </span><span class="s2">// ---------------------------------------------- ----------------------------------------------</span><span class="s1"> 
+<a name="l39"><span class="ln">39   </span></a>    </span><span class="s2">// Calculo RNA ---------------------------------------------------------------------------------</span><span class="s1"> 
+<a name="l40"><span class="ln">40   </span></a>    </span><span class="s2">/** 
+<a name="l41"><span class="ln">41   </span></a>     * En base a un patron de una muestra de datos EMG, devuelve un patron numerico de 0 y 1, el cual podria corresponder con una seña 
+<a name="l42"><span class="ln">42   </span></a>     * </span><span class="s4">@param </span><span class="s2">averageEmgData Patron numerico de muestras de datos EMG 
+<a name="l43"><span class="ln">43   </span></a>     * </span><span class="s4">@param </span><span class="s2">seeEval Indicacion para ver o no mensajes en consola 
+<a name="l44"><span class="ln">44   </span></a>     * </span><span class="s4">@return </span><span class="s2">Patron numerico de 0 y 1 que podria coincidir con el de una seña 
+<a name="l45"><span class="ln">45   </span></a>     */</span><span class="s1"> 
+<a name="l46"><span class="ln">46   </span></a>    </span><span class="s0">public </span><span class="s1">String getStringRNAResult_ofEmgData(Double[] averageEmgData, </span><span class="s0">boolean </span><span class="s1">seeEval){ 
+<a name="l47"><span class="ln">47   </span></a>        String rnaResult = </span><span class="s3">&quot;&quot;</span><span class="s1">; </span><span class="s2">// Resultado del analisis por la RNA</span><span class="s1"> 
+<a name="l48"><span class="ln">48   </span></a>        </span><span class="s0">if</span><span class="s1">(statusRNA){ </span><span class="s2">// Comprobar el estado de la RNA</span><span class="s1"> 
+<a name="l49"><span class="ln">49   </span></a>            Double[] inputs = averageEmgData; </span><span class="s2">// Entradas</span><span class="s1"> 
+<a name="l50"><span class="ln">50   </span></a>            </span><span class="s2">// Ciclo para recorrer cada capa de la RNA</span><span class="s1"> 
+<a name="l51"><span class="ln">51   </span></a>            </span><span class="s0">for</span><span class="s1">(</span><span class="s0">int </span><span class="s1">numLayer = </span><span class="s5">0</span><span class="s1">; numLayer &lt; weightsRNA.size(); numLayer++){ 
+<a name="l52"><span class="ln">52   </span></a>                Double[][] weights = weightsRNA.get(numLayer); </span><span class="s2">// Pesos de la presente capa</span><span class="s1"> 
+<a name="l53"><span class="ln">53   </span></a>                Double[] bias = biasRNA.get(numLayer);         </span><span class="s2">// Bias de la presente capa</span><span class="s1"> 
+<a name="l54"><span class="ln">54   </span></a>                </span><span class="s0">int </span><span class="s1">numNeurons = weights.length; </span><span class="s2">// Numero de Neuronas en las presente capa</span><span class="s1"> 
+<a name="l55"><span class="ln">55   </span></a>                </span><span class="s0">int </span><span class="s1">numInputs = inputs.length;   </span><span class="s2">// Numero de entradas para la presente capa</span><span class="s1"> 
+<a name="l56"><span class="ln">56   </span></a>                Double[] resultOnNeurons = </span><span class="s0">new </span><span class="s1">Double[numNeurons]; </span><span class="s2">// Resultado de la presente capa</span><span class="s1"> 
+<a name="l57"><span class="ln">57   </span></a>                </span><span class="s0">if</span><span class="s1">(numNeurons == bias.length){ 
+<a name="l58"><span class="ln">58   </span></a>                    </span><span class="s2">// Operacion por cada Neurona</span><span class="s1"> 
+<a name="l59"><span class="ln">59   </span></a>                    </span><span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">nNeuron = </span><span class="s5">0</span><span class="s1">; nNeuron &lt; numNeurons; nNeuron++){ 
+<a name="l60"><span class="ln">60   </span></a>                        resultOnNeurons[nNeuron] = </span><span class="s5">0.0</span><span class="s1">; </span><span class="s2">// Resultado por defecto de la Neurona</span><span class="s1"> 
+<a name="l61"><span class="ln">61   </span></a>                        </span><span class="s0">if</span><span class="s1">(numInputs == weights[nNeuron].length){ 
+<a name="l62"><span class="ln">62   </span></a>                            </span><span class="s2">// Operacion por cada Entrada</span><span class="s1"> 
+<a name="l63"><span class="ln">63   </span></a>                            </span><span class="s0">for</span><span class="s1">(</span><span class="s0">int </span><span class="s1">nInput = </span><span class="s5">0</span><span class="s1">; nInput &lt; numInputs; nInput++){ 
+<a name="l64"><span class="ln">64   </span></a>                                </span><span class="s2">// Resultado de la Neurona</span><span class="s1"> 
+<a name="l65"><span class="ln">65   </span></a>                                resultOnNeurons[nNeuron] += (inputs[nInput] * weights[nNeuron][nInput]); 
+<a name="l66"><span class="ln">66   </span></a>                            } 
+<a name="l67"><span class="ln">67   </span></a>                            resultOnNeurons[nNeuron] += bias[nNeuron]; </span><span class="s2">// Sumar Bias al resultado de la Neurona</span><span class="s1"> 
+<a name="l68"><span class="ln">68   </span></a>                            </span><span class="s2">// Aplicar funcion especifica al resultado de la Neurona</span><span class="s1"> 
+<a name="l69"><span class="ln">69   </span></a>                            resultOnNeurons[nNeuron] = getResult_activationFunction(nameFuctionsForLayer[numLayer], resultOnNeurons[nNeuron]); 
+<a name="l70"><span class="ln">70   </span></a>                        }</span><span class="s0">else</span><span class="s1">{ 
+<a name="l71"><span class="ln">71   </span></a>                            </span><span class="s0">if</span><span class="s1">(seeEval){ 
+<a name="l72"><span class="ln">72   </span></a>                                Log.d(TAG, </span><span class="s3">&quot;------ N°Inputs:[&quot; </span><span class="s1">+ numInputs + </span><span class="s3">&quot;], N°wInpt: [&quot; </span><span class="s1">+ weights[nNeuron].length + </span><span class="s3">&quot;]&quot;</span><span class="s1">); 
+<a name="l73"><span class="ln">73   </span></a>                            } 
+<a name="l74"><span class="ln">74   </span></a>                        } 
+<a name="l75"><span class="ln">75   </span></a>                    } 
+<a name="l76"><span class="ln">76   </span></a>                }</span><span class="s0">else</span><span class="s1">{ 
+<a name="l77"><span class="ln">77   </span></a>                    </span><span class="s0">if</span><span class="s1">(seeEval){ 
+<a name="l78"><span class="ln">78   </span></a>                        Log.d(TAG, </span><span class="s3">&quot;------ N°Neurons:[&quot; </span><span class="s1">+ numNeurons + </span><span class="s3">&quot;], N°Bias: [&quot; </span><span class="s1">+ bias.length + </span><span class="s3">&quot;]&quot;</span><span class="s1">); 
+<a name="l79"><span class="ln">79   </span></a>                    } 
+<a name="l80"><span class="ln">80   </span></a>                } 
+<a name="l81"><span class="ln">81   </span></a>                </span><span class="s2">// Actualizar la entrada con el ultimo resultado de las Neuronas</span><span class="s1"> 
+<a name="l82"><span class="ln">82   </span></a>                inputs = resultOnNeurons; 
+<a name="l83"><span class="ln">83   </span></a>            } 
+<a name="l84"><span class="ln">84   </span></a>            </span><span class="s2">// Convertir el resultado de la RNA a un patron numerico</span><span class="s1"> 
+<a name="l85"><span class="ln">85   </span></a>            </span><span class="s0">for</span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s5">0</span><span class="s1">; i &lt; inputs.length; i++){ 
+<a name="l86"><span class="ln">86   </span></a>                </span><span class="s0">if</span><span class="s1">(inputs[i] &gt; </span><span class="s5">0.9</span><span class="s1">){ 
+<a name="l87"><span class="ln">87   </span></a>                    rnaResult += </span><span class="s3">&quot;1&quot;</span><span class="s1">; 
+<a name="l88"><span class="ln">88   </span></a>                }</span><span class="s0">else</span><span class="s1">{ 
+<a name="l89"><span class="ln">89   </span></a>                    rnaResult += </span><span class="s3">&quot;0&quot;</span><span class="s1">; 
+<a name="l90"><span class="ln">90   </span></a>                } 
+<a name="l91"><span class="ln">91   </span></a>                </span><span class="s0">if</span><span class="s1">(seeEval){ 
+<a name="l92"><span class="ln">92   </span></a>                    Log.d(TAG, </span><span class="s3">&quot;------ Nr°:&quot;</span><span class="s1">+i+</span><span class="s3">&quot;...[&quot; </span><span class="s1">+ inputs[i] + </span><span class="s3">&quot;][&quot;</span><span class="s1">+rnaResult+</span><span class="s3">&quot;]&quot;</span><span class="s1">); 
+<a name="l93"><span class="ln">93   </span></a>                } 
+<a name="l94"><span class="ln">94   </span></a>            } 
+<a name="l95"><span class="ln">95   </span></a>        }</span><span class="s0">else</span><span class="s1">{ 
+<a name="l96"><span class="ln">96   </span></a>            </span><span class="s0">if</span><span class="s1">(seeEval){ 
+<a name="l97"><span class="ln">97   </span></a>                Log.d(TAG, </span><span class="s3">&quot;&gt;&gt;&gt;&gt;&gt;&gt; myoTamoRNA Uninitialized &lt;&lt;&lt;&lt;&lt;&lt;&quot;</span><span class="s1">); 
+<a name="l98"><span class="ln">98   </span></a>            } 
+<a name="l99"><span class="ln">99   </span></a>        } 
+<a name="l100"><span class="ln">100  </span></a>        </span><span class="s0">return </span><span class="s1">rnaResult; 
+<a name="l101"><span class="ln">101  </span></a>    } 
+<a name="l102"><span class="ln">102  </span></a>    </span><span class="s2">// Aplicar una funcion especifica a un valor especifico</span><span class="s1"> 
+<a name="l103"><span class="ln">103  </span></a>    </span><span class="s2">/** 
+<a name="l104"><span class="ln">104  </span></a>     * Devuelve la aplicacion de una funcion especifica sobre un valor especifico 
+<a name="l105"><span class="ln">105  </span></a>     * </span><span class="s4">@param </span><span class="s2">nomFunction Nombre de la funcion a ser aplicada 
+<a name="l106"><span class="ln">106  </span></a>     * </span><span class="s4">@param </span><span class="s2">value Valor sobre el cual se aplicara una funcion 
+<a name="l107"><span class="ln">107  </span></a>     * </span><span class="s4">@return </span><span class="s2">Resultado de la aplicacion una funcion sobre un valor 
+<a name="l108"><span class="ln">108  </span></a>     */</span><span class="s1"> 
+<a name="l109"><span class="ln">109  </span></a>    </span><span class="s0">public </span><span class="s1">Double getResult_activationFunction(String nomFunction, Double value){ 
+<a name="l110"><span class="ln">110  </span></a>        Double result; </span><span class="s2">// Resultado de la funcion</span><span class="s1"> 
+<a name="l111"><span class="ln">111  </span></a>        </span><span class="s0">switch </span><span class="s1">(nomFunction){ 
+<a name="l112"><span class="ln">112  </span></a>            </span><span class="s0">case </span><span class="s3">&quot;logsig&quot;</span><span class="s1">: </span><span class="s2">// Aplicar funcion logaritmica sigmoide</span><span class="s1"> 
+<a name="l113"><span class="ln">113  </span></a>                result = (</span><span class="s5">1 </span><span class="s1">/ (</span><span class="s5">1 </span><span class="s1">+ Math.exp(-value))); 
+<a name="l114"><span class="ln">114  </span></a>                </span><span class="s0">break</span><span class="s1">; 
+<a name="l115"><span class="ln">115  </span></a>            </span><span class="s0">case </span><span class="s3">&quot;tansig&quot;</span><span class="s1">: </span><span class="s2">// Aplicar funcion de tangente sigmoide</span><span class="s1"> 
+<a name="l116"><span class="ln">116  </span></a>                result = (</span><span class="s5">2 </span><span class="s1">/ (</span><span class="s5">1</span><span class="s1">+Math.exp(-</span><span class="s5">2 </span><span class="s1">* value))) -</span><span class="s5">1</span><span class="s1">; 
+<a name="l117"><span class="ln">117  </span></a>                </span><span class="s0">break</span><span class="s1">; 
+<a name="l118"><span class="ln">118  </span></a>            </span><span class="s0">case </span><span class="s3">&quot;purelin&quot;</span><span class="s1">: </span><span class="s2">// Funcion de tranferencia linear</span><span class="s1"> 
+<a name="l119"><span class="ln">119  </span></a>                result = value; 
+<a name="l120"><span class="ln">120  </span></a>                </span><span class="s0">break</span><span class="s1">; 
+<a name="l121"><span class="ln">121  </span></a>            </span><span class="s0">default</span><span class="s1">: 
+<a name="l122"><span class="ln">122  </span></a>                result = value; 
+<a name="l123"><span class="ln">123  </span></a>        } 
+<a name="l124"><span class="ln">124  </span></a>        </span><span class="s0">return </span><span class="s1">result; 
+<a name="l125"><span class="ln">125  </span></a>    } 
+<a name="l126"><span class="ln">126  </span></a>} 
+<a name="l127"><span class="ln">127  </span></a></span></pre>
+</body>
+</html>
